@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect
 
-from .forms import SignupForm,SigninForm
+from .forms import SignupForm,SigninForm,UserProfileForm
 
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import login,logout,authenticate
 
 from django.contrib.auth.models import User
+
+from .models import *
 
 # Create your views here.
 def signup(request):
@@ -32,3 +34,10 @@ def signin(request):
             login(request,user)
             
     return render(request,'accounts/signin.html',{'form':form})
+
+def profile(request):
+    current_user = request.user
+    
+    profile = Profile.objects.filter(user_id = current_user.id).first()
+    
+    return render(request,'profile/profile.html',{"profile":profile})
