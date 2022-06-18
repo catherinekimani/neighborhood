@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 
-from .forms import SignupForm,SigninForm,UserProfileForm
+from .forms import SignupForm,SigninForm,UserProfileForm,ProfileUpdateForm
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -41,3 +41,26 @@ def profile(request):
     profile = Profile.objects.filter(user_id = current_user.id).first()
     
     return render(request,'profile/profile.html',{"profile":profile})
+
+def editprofile(request):
+    Profile.objects.get_or_create(user=request.user)
+    
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST,instance=request.user)
+        
+        form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        
+        if form.is_valid() and form.is_valid():
+            
+            form.save()
+            
+            form.save()
+            
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=request.user)
+        form = ProfileUpdateForm(instance=request.user.profile)
+        
+    return render(request,'profile/edit.html',{'form':form})
+        
+        
