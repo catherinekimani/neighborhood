@@ -14,4 +14,6 @@ urlpatterns = [
     path('hood',views.hood,name='hood'),
     path('join_hood/<neighborhood_id>',views.join_hood,name='join'),
     path('leave_hood/<neighborhood_id>',views.leave_hood,name='leave'),
+    
+    path('post',views.post,name='post')
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 
-from .forms import RegisterForm,LoginForm,UserProfileForm,ProfileUpdateForm,HoodForm
+from .forms import RegisterForm,LoginForm,UserProfileForm,ProfileUpdateForm,HoodForm,PostForm
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -96,3 +96,17 @@ def leave_hood(request, neighborhood_id):
     request.user.profile.neighborhood = None
     request.user.profile.save()
     return redirect('index')
+
+def post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+        return redirect('index')
+
+    else:
+        form = PostForm()
+    return render(request,'post.html',{"user":current_user,"form":form})
