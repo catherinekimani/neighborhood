@@ -41,3 +41,19 @@ class Neighborhood(models.Model):
     def find_neighborhood(cls, neighborhood_id):
         return cls.objects.filter(id=neighborhood_id)
     
+class Post(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    image = CloudinaryField('image')
+    created_on = models.DateTimeField(auto_now_add=True)
+    
+    def save_post(self):
+        self.save()
+        
+    def delete_post(self):
+        self.delete()
+        
+    def __str__(self):
+        return f'{self.title}'
+    
