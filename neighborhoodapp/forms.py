@@ -45,3 +45,10 @@ class HoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
         exclude = ('admin', )
+        
+class PostForm(forms.ModelForm):
+    description = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    
+    class Meta:
+        model = Post
+        exclude = ('admin','user' ,)
