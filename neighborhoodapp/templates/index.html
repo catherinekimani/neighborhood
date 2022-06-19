@@ -22,3 +22,44 @@
 </nav>
 </div>
 </div>
+<div id="hood">
+    <h2 class="text-center">Popular Hoods</h2>
+    <div class="row">
+    {% for neighborhood in all_hoods%}
+    <div class="col-md-3 mx-5">
+    <div class="card " style="width: 25rem;">
+    <img src="{{neighborhood.hood_image.url}}" class="card-img-top" alt="..." class="img-fluid" data-bs-toggle="modal" data-bs-target="#exampleModal{{neighborhood.id}}"> 
+    <div class="card-body text-center">
+    <h5>{{neighborhood.hood_name}}</h5>
+    <p>{{neighborhood.hood_location}}</p>
+    <p>{{neighborhood.created_on}}</p>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal{{neighborhood.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">My Hood</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h5>HoodName: {{neighborhood.hood_name}}</h5>
+            <p>HoodLocation: {{neighborhood.hood_location}}</p>
+            <p>HoodDescr: {{neighborhood.hood_descr}} </p>
+            <p>Occupants: {{neighborhood.occupants_count}}</p>
+            <p>HospitalTel: {{neighborhood.hospital_tel}}</p>
+            <p>PoliceTel: {{neighborhood.police_count}}</p>
+            <a href="#" class="card-link btn-outline-info btn">Join Hood</a>
+            <a href="#" class="card-link btn-outline-info btn">Leave Hood</a>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+

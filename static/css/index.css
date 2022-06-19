@@ -27,3 +27,8 @@
 span{
     color: rgb(233, 16, 16);
 }
+
+#hood{
+    font-family: 'Times New Roman', Times, serif;
+    height: 100vh;
+}
