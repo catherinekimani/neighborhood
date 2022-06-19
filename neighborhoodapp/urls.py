@@ -7,4 +7,6 @@ urlpatterns = [
     
     path('profile',views.profile,name='profile'),
     path('editprofile',views.editprofile,name='editprofile'),
+    
+    path('',views.index,name='index'),
 ]

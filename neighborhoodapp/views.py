@@ -63,4 +63,5 @@ def editprofile(request):
         
     return render(request,'profile/edit.html',{'form':form})
         
-        
+def index(request):
+    return render(request,'index.html')
