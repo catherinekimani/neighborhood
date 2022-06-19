@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@100;200;300;400;600&family=Fira+Sans:ital,wght@0,200;0,300;0,400;1,200;1,300&family=Playball&display=swap');
+
+.header{
+    background-image: url('/static/images/house.jpg');
+    background-size: cover;
+    height: 70vh;
+}
+
+.navbar a{
+    text-decoration: none;
+    color: rgb(231, 221, 221);
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+
+
+}
+
+.search {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Times New Roman', Times, serif;
+    color: aliceblue;
+}
+
+span{
+    color: rgb(233, 16, 16);
+}
