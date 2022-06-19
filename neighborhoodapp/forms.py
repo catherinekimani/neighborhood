@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.models import User
 
-from .models import Profile
+from .models import Profile,Neighborhood
 
 class SignupForm(UserCreationForm):
     firstname = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -42,3 +42,8 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['user_bio','user_contact','user_profile']
+        
+class HoodForm(forms.ModelForm):
+    class Meta:
+        model = Neighborhood
+        fields = '__all__'
