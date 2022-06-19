@@ -5,15 +5,6 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 # Create your models here.
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_bio = models.TextField(max_length=150)
-    user_contact = models.EmailField(max_length=100)
-    user_profile = CloudinaryField('image')
-    
-    def __str__(self):
-        return f'{self.user.username} Profile'
-    
 class Neighborhood(models.Model):
     admin = models.ForeignKey(User,on_delete=models.CASCADE)
     hood_name = models.CharField(max_length=100)
@@ -41,12 +32,26 @@ class Neighborhood(models.Model):
     def find_neighborhood(cls, neighborhood_id):
         return cls.objects.filter(id=neighborhood_id)
     
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_bio = models.TextField(max_length=150)
+    user_contact = models.EmailField(max_length=100)
+    user_profile = CloudinaryField('image')
+    location = models.CharField(max_length=100,blank=True,null=True)
+    neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE,blank=True,null=True)
+    
+    def __str__(self):
+        return f'{self.user.username} Profile'
+    
+    
 class Post(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
     image = CloudinaryField('image')
     created_on = models.DateTimeField(auto_now_add=True)
+    neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE,blank=True,null=True)
+    
     
     def save_post(self):
         self.save()
