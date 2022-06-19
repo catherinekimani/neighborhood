@@ -41,7 +41,7 @@ class Profile(models.Model):
     neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE,blank=True,null=True)
     
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user} Profile'
     
     
 class Post(models.Model):
@@ -62,3 +62,22 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title}'
     
+    
+class Business(models.Model):
+    business_name = models.CharField(max_length=100)
+    business_email = models.EmailField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE,blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'{self.business_name}'
+    
+    def create_business(self):
+        self.save()
+
+    def update_business(self):
+        self.save()
+        
+    def delete_business(self):
+        self.delete()
