@@ -9,4 +9,6 @@ urlpatterns = [
     path('editprofile',views.editprofile,name='editprofile'),
     
     path('',views.index,name='index'),
+    
+    path('hood',views.hood,name='hood')
 ]

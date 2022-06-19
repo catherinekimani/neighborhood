@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 
-from .forms import SignupForm,SigninForm,UserProfileForm,ProfileUpdateForm
+from .forms import SignupForm,SigninForm,UserProfileForm,ProfileUpdateForm,HoodForm
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -64,4 +64,19 @@ def editprofile(request):
     return render(request,'profile/edit.html',{'form':form})
         
 def index(request):
-    return render(request,'index.html')
+    all_hoods = Neighborhood.objects.all()
+    return render(request,'index.html',{"all_hoods":all_hoods})
+
+def hood(request):
+    current_user = request.user
+    
+    if request.method == 'POST':
+        form = HoodForm(request.POST,request.FILES)
+        if form.is_valid():
+            hood = form.save(commit=False)
+            hood.save()
+            return redirect('index')
+    else:
+        form = HoodForm()
+    return render(request,'hood.html',{"form":form})
+        
