@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.models import User
 
-from .models import Profile,Neighborhood,Post
+from .models import Profile,Neighborhood,Post,Business
 
 class RegisterForm(UserCreationForm):
     firstname = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -44,11 +44,15 @@ class ProfileUpdateForm(forms.ModelForm):
 class HoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
-        exclude = ('admin', )
+        exclude = ('admin', 'hood_descr')
         
 class PostForm(forms.ModelForm):
     description = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
-    
     class Meta:
         model = Post
+        exclude = ('user' ,)
+        
+class BusinessForm(forms.ModelForm):
+    class Meta:
+        model = Business
         exclude = ('admin','user' ,)

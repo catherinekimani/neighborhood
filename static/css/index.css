@@ -4,6 +4,7 @@
     background-image: url('/static/images/house.jpg');
     background-size: cover;
     height: 70vh;
+    overflow-x: hidden;
 }
 
 .navbar a{
@@ -31,4 +32,27 @@ span{
 #hood{
     font-family: 'Times New Roman', Times, serif;
     height: 100vh;
+    overflow-x: hidden;
+}
+
+.navigation-icons {
+    display: flex;
+}
+
+.navigation-icons a {
+    text-decoration: none;
+}
+
+.navigation-link i {
+    margin-left: 30px;
+    color: black;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+form{
+    color:white;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
 }
