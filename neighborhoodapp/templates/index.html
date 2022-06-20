@@ -10,13 +10,13 @@
     <div class="header">
         {% include 'navbar.html'%}
     <div class="search">
-        <h2>Search For Your Hood</h2>
+        <h2>Search For Hood</h2>
         <p class="text-center">Start Your Search</p>
     <nav class="navbar navbar-light ">
     <div class="container-fluid">
-    <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-info" type="submit">Search</button>
+    <form class="d-flex" action="{% url 'search_results' %}">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="hood_name">
+        <a class="btn btn-outline-info" type="submit">Search</a>
     </form>
     </div>
 </nav>
@@ -49,8 +49,13 @@
             <p>Occupants: {{neighborhood.occupants_count}}</p>
             <p>HospitalTel: {{neighborhood.hospital_tel}}</p>
             <p>PoliceTel: {{neighborhood.police_count}}</p>
-            <a href="#" class="card-link btn-outline-info btn">Join Hood</a>
-            <a href="#" class="card-link btn-outline-info btn">Leave Hood</a>
+            {% if request.user.profile.neighborhood == neighborhood %}
+                    <a href="{% url 'leave' neighborhood.id %}" class="btn btn-outline-info">Leave Hood</a>
+                    {% else %}
+                    <a href="{% url 'join' neighborhood.id %}" class="btn btn-outline-info">Join Hood</a>
+                    {% endif %}
+            <a href="{% url 'hoods' neighborhood.id %}" class="card-link btn-outline-info btn">Business</a>
+            <a href="{% url 'post' neighborhood.id %}" class="card-link btn-outline-info btn">Posts</a>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>

@@ -10,39 +10,36 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Business</a>
+            <a class="nav-link" href="#bus">Business</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Hospitals</a>
+            <a class="nav-link" href="#hood">All_hoods</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Police Station</a>
+            <a class="nav-link" href=""  data-bs-toggle="modal" data-bs-target="#exampleModal" >Post</a>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Hoods
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'hood' %}"  >Hood</a>
         </li>
         </ul>
         {% if user.is_authenticated %}
-        <div class="navbar-nav ms-lg-4">
-        <a href="" id="signout" class="navigation-link">
+    <div class="navigation-icons">
+        <a class="navigation-link notifica" href="" ><i class="fas fa-plus"></i></a>
+        <a  href="{%url 'editprofile' %}" class="navigation-link notifica">
+            <i class="fas fa-edit"></i>
+            </i>
+            </a>
+        <a href="{% url 'profile' %}" class="navigation-link">
+            <i class="far fa-user-circle"></i>
+        </a>
+        <a href="{% url 'logout' %}" id="signout" class="navigation-link">
             <i class="fas fa-sign-out-alt"></i>
         </a>
-        </div>
-        <!-- Action -->
-        <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
         {% else %}
-        <a href="{% url 'signin' %}" class="navigation-link" ><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+        <a href="{% url 'login' %}" class="navigation-link" ><i class="fa fa-sign-in" aria-hidden="true"></i></a>
         
         {% endif %}
-        </div>
+    </div>
     </div>
     </div>
 </nav>
