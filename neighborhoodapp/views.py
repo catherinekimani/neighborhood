@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 
-from .forms import RegisterForm,LoginForm,UserProfileForm,ProfileUpdateForm,HoodForm,PostForm
+from .forms import RegisterForm,LoginForm,UserProfileForm,ProfileUpdateForm,HoodForm,PostForm,BusinessForm
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -67,9 +67,11 @@ def editprofile(request):
 @login_required(login_url='/login/')
 def index(request):
     all_hoods = Neighborhood.objects.all()
-    
-    return render(request,'index.html',{'all_hoods':all_hoods})
+    business = Business.objects.all()
+    post = Post.objects.all()
+    return render(request,'index.html',{'all_hoods':all_hoods,'business':business,'post':post})
 
+@login_required(login_url='/login/')
 def hood(request):
     if request.method == 'POST':
         form = HoodForm(request.POST,request.FILES)
@@ -84,7 +86,8 @@ def hood(request):
 def logout_user(request):
     logout (request)
     return redirect('login')        
-        
+
+@login_required(login_url='/login/')        
 def join_hood(request, neighborhood_id):
     neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
     request.user.profile.neighborhood = neighborhood
@@ -97,16 +100,49 @@ def leave_hood(request, neighborhood_id):
     request.user.profile.save()
     return redirect('index')
 
-def post(request):
-    current_user = request.user
+@login_required(login_url='/login/')
+def hoods(request, neighborhood_id):
+    neighborhood = Neighborhood.objects.get(id=neighborhood_id)
+    if request.method == 'POST':
+        form = BusinessForm(request.POST, request.FILES)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.neighborhood = neighborhood
+            business.user = request.user
+            business.save()
+            return redirect('index')
+    else:
+        form = BusinessForm()
+        current_user = request.user
+        neighborhood = Neighborhood.objects.get(id=neighborhood_id)
+        business = Business.objects.filter(neighborhood_id=neighborhood)
+        users = Profile.objects.filter(neighborhood=neighborhood)
+    return render(request, 'hoods.html', {'form':form, 'form': form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business})
+
+@login_required(login_url='/login/')
+def post(request,neighborhood_id):
+    neighborhood = Neighborhood.objects.get(id=neighborhood_id)
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.user = current_user
+            post.neighborhood = neighborhood
+            post.user = request.user
             post.save()
-        return redirect('index')
-
+            
     else:
         form = PostForm()
-    return render(request,'post.html',{"user":current_user,"form":form})
+        current_user = request.user
+        neighborhood = Neighborhood.objects.get(id=neighborhood_id)
+        users = Profile.objects.filter(neighborhood=neighborhood)
+        post = Post.objects.filter(neighborhood=neighborhood)
+    return render(request, 'post.html', {'form':form, 'form': form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'post':post})
+
+@login_required(login_url='/login/')
+def search_results(request):
+    if 'hood_name' in request.GET and request.GET["hood_name"]:
+        search_term = request.GET["hood_name"]
+        searched_hoods = Neighborhood.search_by_hood_name(search_term)
+        message = f"{search_term}"
+        print(search_term)
+    return render(request, 'search.html',{"message":message,"hoods": searched_hoods})

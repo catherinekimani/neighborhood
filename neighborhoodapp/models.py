@@ -32,6 +32,11 @@ class Neighborhood(models.Model):
     def find_neighborhood(cls, neighborhood_id):
         return cls.objects.filter(id=neighborhood_id)
     
+    @classmethod
+    def search_by_hood_name(cls, search_term):
+        hood = cls.objects.filter(hood_name__icontains=search_term)
+        return hood
+    
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_bio = models.TextField(max_length=150)
@@ -78,6 +83,14 @@ class Business(models.Model):
 
     def update_business(self):
         self.save()
+        
+    def find_business(cls, business_id):
+        return cls.objects.filter(id=business_id)
+        
+    @classmethod
+    def search_by_business_name(cls, search_term):
+        business = cls.objects.filter(business_name__icontains=search_term)
+        return business
         
     def delete_business(self):
         self.delete()

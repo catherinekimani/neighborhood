@@ -11,9 +11,12 @@ urlpatterns = [
     
     path('',views.index,name='index'),
     
+    path('hoods/<neighborhood_id>',views.hoods,name='hoods'),
+    path('post/<neighborhood_id>',views.post,name='post'),
+    
     path('hood',views.hood,name='hood'),
     path('join_hood/<neighborhood_id>',views.join_hood,name='join'),
     path('leave_hood/<neighborhood_id>',views.leave_hood,name='leave'),
     
-    path('post',views.post,name='post')
+    path('search/', views.search_results, name='search_results'),
 ]
