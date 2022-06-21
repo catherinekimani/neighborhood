@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
 {% endblock %}
 {% block content %}
-<div class="header">
+<div class="header" style="height: 100vh;">
     {% include 'navbar.html'%}
     <form action="" method="post" enctype="multipart/form-data" class="w-50 mx-auto ">
         {%csrf_token%}
@@ -16,6 +16,21 @@
         
         <input type="submit" class="btn btn-outline-info " value="Add Post">
 </form>
+<marquee behavior="" direction="right"><h2  style="font-family: 'Times New Roman', Times, serif;color: aliceblue;"> All Posts </h2></marquee>
+<div class="row">
+{% for post in post %}
+<div class="col-md-3 mx-5">
+<div class="card" style="width: 25rem;font-family: 'Times New Roman', Times, serif;">
+    <img src="{{post.image.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.description}}</p>
+    </div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
 </div>
 {% endblock %}
 

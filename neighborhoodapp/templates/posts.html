@@ -8,23 +8,13 @@
 {% endblock %}
 <div class="header">
     {% include 'navbar.html'%}
-        <div class="card" style="width: 18rem;">
-{% if user.profile.user_profile %}
-    <img src="{{user.profile.user_profile.url}}" class="card-img-top" alt="..." class="img-fluid">
+{% for post in post %}
+<div class="card" style="width: 18rem;">
+    <img src="{{post.image.url}}" class="card-img-top" alt="...">
     <div class="card-body">
-    <h5 class="card-title">{{user.username}}</h5>
-    <p class="card-text">{{user.profile.user_bio}}</p>
-    <p class="card-text">{{user.profile.neighborhood}}</p>
-
-    <a href="#" class="btn btn-outline-info btn-sm">{{user.profile.user_contact}}</a>
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.description}}</p>
     </div>
-    </div>
-{% else %}
-    <img src="https://cdn.pixabay.com/photo/2020/05/12/12/11/tulip-5162642__340.jpg" class="card-img-top" alt="..." class="img-fluid">
-    <div class="card-body">
-    <h5 class="card-title">{{user.username}}</h5>
-    </div>
-
-{% endif %}
-    </div>
-    
+</div>
+{% endfor %}
+</div>
