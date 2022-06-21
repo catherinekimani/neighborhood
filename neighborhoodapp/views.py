@@ -92,7 +92,7 @@ def join_hood(request, neighborhood_id):
     neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
     request.user.profile.neighborhood = neighborhood
     request.user.profile.save()
-    return redirect('index')
+    return redirect('hoods' ,neighborhood.id)
 
 def leave_hood(request, neighborhood_id):
     neighborhood = get_object_or_404(Neighborhood, id=neighborhood_id)
@@ -129,7 +129,7 @@ def post(request,neighborhood_id):
             post.neighborhood = neighborhood
             post.user = request.user
             post.save()
-            
+            return redirect('index')
     else:
         form = PostForm()
         current_user = request.user
@@ -140,9 +140,12 @@ def post(request,neighborhood_id):
 
 @login_required(login_url='/login/')
 def search_results(request):
-    if 'hood_name' in request.GET and request.GET["hood_name"]:
-        search_term = request.GET["hood_name"]
-        searched_hoods = Neighborhood.search_by_hood_name(search_term)
-        message = f"{search_term}"
-        print(search_term)
-    return render(request, 'search.html',{"message":message,"hoods": searched_hoods})
+    if request.method == 'GET':
+        business_name = request.GET.get("business_name")
+        results = Business.objects.filter(business_name__icontains=business_name).all()
+        print(results)
+        message = f'business_name'
+        return render(request, 'search.html', {'message':message,'results':results})
+    else:
+        message = "You haven't searched for any image category"
+    return render(request, "search.html")

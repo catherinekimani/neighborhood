@@ -22,6 +22,10 @@ class Neighborhood(models.Model):
     def create_neigborhood(self):
         self.save()
         
+    @classmethod
+    def search_hood(cls, hood_name):
+        return cls.objects.filter(hood_name__icontains=hood_name).all()
+    
     def delete_neigborhood(self):
         self.delete()
     
@@ -33,9 +37,8 @@ class Neighborhood(models.Model):
         return cls.objects.filter(id=neighborhood_id)
     
     @classmethod
-    def search_by_hood_name(cls, search_term):
-        hood = cls.objects.filter(hood_name__icontains=search_term)
-        return hood
+    def search_hood(cls, hood_name):
+        return cls.objects.filter(hood_name__icontains=hood_name).all()
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -88,9 +91,8 @@ class Business(models.Model):
         return cls.objects.filter(id=business_id)
         
     @classmethod
-    def search_by_business_name(cls, search_term):
-        business = cls.objects.filter(business_name__icontains=search_term)
-        return business
+    def search_results(cls, business_name):
+        return cls.objects.filter(business_name__icontains=business_name).all()
         
     def delete_business(self):
         self.delete()

@@ -10,22 +10,22 @@
 <div class="header">
     {% include 'navbar.html'%}
     <div class="row">
-        {% if all_hoods %}
-        <h2>Found {{ all_hoods|length }} of searched term {{message}}</h2>
+        {% if results %}
+        <h2>Found {{ results|length }} of searched term {{message}}</h2>
         {% else %}
-        <h2> Found 0 hood for the search term {{message}}</h2>
+        <h2> Found 0 business for the search term {{message}}</h2>
         {% endif %}
 
     </div>
     <div class="row">
-    
-        {% if all_hoods %}
-        {% for neighborhood in all_hoods%}
-        <div class=" col-md-4">
-            <img src="{{neighborhood.hood_image.url}}" alt="">
-            {{neighborhood.hood_name}}
-        </div>
-        {% endfor %}
-        {% endif %}
+{% for business in results %}
+<div class="col-md-3 mx-5">
+<div class="card" style="width: 25rem;background-color: #000f40;color: aliceblue;font-family: 'Times New Roman', Times, serif;">
+    <div class="card-body">
+    <h5 class="card-title">{{business.business_name}}</h5>
+    <p class="card-text">{{business.business_email}}</p>
     </div>
+</div>
+</div>
+{% endfor %}
 </div>

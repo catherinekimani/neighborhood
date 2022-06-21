@@ -19,4 +19,5 @@ urlpatterns = [
     path('leave_hood/<neighborhood_id>',views.leave_hood,name='leave'),
     
     path('search/', views.search_results, name='search_results'),
+    
 ]

@@ -39,7 +39,7 @@ class ProfileUpdateForm(forms.ModelForm):
     user_bio = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
     class Meta:
         model = Profile
-        fields = ['user_bio','user_contact','user_profile']
+        exclude = ('location', )
         
 class HoodForm(forms.ModelForm):
     class Meta:
